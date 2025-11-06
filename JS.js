@@ -344,14 +344,21 @@
                 description: "Deal 5 damage to any target"
             }
         ];
-        let cart =[];
+        let cart = JSON.parse(localStorage.getItem('cart'));
+        if(cart === null) cart = []
         let current = 'all'
         let filter_cards = cards
         let cuurent_index
+
+
+        const cartslider = document.getElementById('cartslider');
+        const totalContainer = document.getElementById('totalContainer')
+        const panier = document.getElementById('panier')
+        const btn_cart = document.getElementById('cart')
         const container = document.getElementById("cardcontainer")
-        // container.innerHTML = '';
-        let index;
-       function add_cart(show_cards=cards, index=0){     
+        
+if(window.location.pathname == "/market.html"){
+function add_cart(show_cards=cards, index=0){     
             container.innerHTML = '';
             for(let i=index ; i<index+9 && i<show_cards.length; i++){
             const card_container = document.createElement('div');
@@ -393,9 +400,9 @@
             }
         }
         add_cart(cards, 0)
-    
-
-
+}
+        let index;
+       
       function filter_faction(x){
             // if(x === 'all'){
             //         filter_cards = cards
@@ -421,71 +428,49 @@
             add_cart(filter_cards, 0)
         }
 
+        let cpt = 1
+        function update_cart(id){
+            panier.innerHTML=''
+            let total =0;
+            for(let i=0; i<cart.length;i++){
 
+            }
+            const card = cards.find(c => c.id === id)
+            console.log(card);
+            const exist = cart.some(x => x.id ===id)
+            
+            if(!exist){
+                cart.push({
+                id: card.id,
+                name: card.name,
+                faction: card.faction,
+                type: card.type,
+                rarity: card.rarity,
+                edition: card.edition,
+                attack: card.attack,
+                defense: card.defense,
+                speed: card.speed,
+                price: card.price,
+                image: card.image,
+                description: card.description,
+                quatity: 1
+                });
+                // console.log(cart)
+                localStorage.setItem('cart', JSON.stringify(cart))
+                // console.log(cart)
+                alert('Added To Cart')
+                btn_cart.innerHTML = `Cart (${cpt})`
+                cpt++
+                panieradder();
 
-
-
-
-// window.filter_faction = filter_faction;
-// window.filter_rarity = filter_rarity;
-// window.add_cart = add_cart;
-// window.favorite_card = favorite_card;
-
-        
-
-//         let cpt = 0;
-//         function update_cart(id){
-//             cpt++
-//             const card = cards.find(c => c.id === id)
-//             console.log(card);
-//             const exist = cart.some(x => x.id ===id)
-//             console.log(exist)
-//             if(!exist){
-//                 cart.push(card)
-//                 // console.log(cart)
-//                 localStorage.setItem('cart', JSON.stringify(cart))
-//                 alert('Added To Cart')
-//             }else{
-//                 alert("Already Added !!")
-//             }
+            }else{
+                alert("Already Added !!")
+            }
             
             
-//             let panier = document.getElementById('cart')
-//             // console.log(panier)
-//             panier.innerHTML = `Cart (${cart.length})`
-//         }
+            // // let panier = document.getElementById('cart')
+            // // // console.log(panier)
+            // // panier.innerHTML = `Cart (${cart.length})`
+        }
 
 
-// let favorite_cards = JSON.parse(localStorage.getItem('favorite_card'))
-// if (favorite_cards === null) {
-//     favorite_cards = [];
-// }
-// function favorite_card(id){
-//     const card = cards.find(c => c.id === id);
-//     console.log(card)
-//     if(!(favorite_cards.includes(card))){
-//         favorite_cards.push(card);
-//         console.log(favorite_cards);
-//         localStorage.setItem('favorite_card', JSON.stringify(favorite_cards))
-//     }
-    
-// }
-
-
-//         const btns =  document.querySelectorAll('.btn-pagination');
-        
-//          btns[0].addEventListener('click', () => {
-//             add_cart(cards, 0)
-//         });
-//         btns[1].addEventListener('click', () => {
-//             add_cart(cards, 9)
-//         });
-//         btns[2].addEventListener('click', () => {
-//             add_cart(cards, 18)
-//         });
-        
-
-
-
-
-  

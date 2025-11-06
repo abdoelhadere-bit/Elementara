@@ -474,3 +474,41 @@ function add_cart(show_cards=cards, index=0){
         }
 
 
+function panieradder() {
+    panier.innerHTML = '';
+    let total = 0;
+
+    for (let i = 0; i < cart.length; i++) {
+        // Sécurité : si la quantité n’existe pas encore, on la crée
+        if (!cart[i].quantity) cart[i].quantity = 1;
+
+        let total_card = cart[i].price * cart[i].quantity;
+        total += total_card;
+
+        panier.innerHTML += `
+            <div class="flex flex-col bg-[#0E0E22] rounded-lg mb-4 p-3">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <img src="${cart[i].image}" alt="${cart[i].name}" class="w-16 h-24 rounded-md object-cover border border-gray-700">
+                        <div>
+                            <h3 class="font-bold text-sm">${cart[i].name}</h3>
+                            <p class="text-gray-400 text-xs">${total_card.toFixed(2)} 💎</p>
+                        </div>
+                    </div>
+                    <button class="text-gray-400 hover:text-red-500 transition" onclick="removeFromCart(${i})">
+                        <span>X</span>
+                    </button>
+                </div>
+
+                <div class="flex justify-center items-center gap-4 mt-3">
+                    <button class="text-xl font-bold text-white hover:text-cyan-400 transition" onclick="changeQuantity(${i}, -1)">−</button>
+                    <span class="text-lg font-semibold">${cart[i].quantity}</span>
+                    <button class="text-xl font-bold text-white hover:text-cyan-400 transition" onclick="changeQuantity(${i}, 1)">+</button>
+                </div>
+            </div>
+        `;
+    }
+
+    document.getElementById('totalPrice').textContent = `${total.toFixed(2)} 💎`;
+}
+

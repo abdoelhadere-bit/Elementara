@@ -546,4 +546,12 @@ function changeQuantity(index, delta) {
     
     panieradder();
 }
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    panieradder(); // 👈 On réaffiche le panier après suppression
+    localStorage.removeItem('cart');
+}
 
+
+      

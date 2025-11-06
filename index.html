@@ -190,7 +190,30 @@ Unleash the flames of destruction. The fire titans embody brute force and devast
         </div>
     </footer>
 
+ <script>
+const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".dot");
+let index = 0;
 
+function showSlide(i) {
+    slides.forEach((slide, idx) => {
+        slide.classList.toggle("active", idx === i);
+        dots[idx].classList.toggle("active", idx === i);
+    });
+}
+
+dots.forEach((dot, i) => {
+    dot.addEventListener("click", () => {
+        index = i;
+        showSlide(index);
+    });
+});
+
+setInterval(() => {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+}, 3000); 
+</script>
 
 </body>
 </html>

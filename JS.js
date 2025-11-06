@@ -511,4 +511,26 @@ function panieradder() {
 
     document.getElementById('totalPrice').textContent = `${total.toFixed(2)} 💎`;
 }
+const checkoutBtn = document.getElementById('checkoutBtn');
 
+checkoutBtn.addEventListener('click', () => {
+    if (cart.length === 0) {
+        alert("Votre panier est vide !");
+        return;
+    }
+
+    let deck = JSON.parse(localStorage.getItem('deck')) || [];
+
+    deck.push(...cart);
+
+    localStorage.setItem('deck', JSON.stringify(deck));
+
+    cart = [];
+    localStorage.removeItem('cart');
+
+    panieradder();
+
+    alert("Achat réussi ! Les cartes ont été ajoutées à votre deck ✅");
+});
+
+  

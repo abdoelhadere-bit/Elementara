@@ -1,5 +1,4 @@
         const cards = [
-            // LEGENDARY CARDS (1/1)
             {
                 id: 1,
                 name: "Voltarax",
@@ -350,29 +349,29 @@
         const container = document.getElementById("cardcontainer")
         // container.innerHTML = '';
         let index;
-       function add_cart(cards, index){     
+       function add_cart(show_cards=cards, index=0){     
             container.innerHTML = '';
-            for(let i=index ; i<index+9 && i<cards.length; i++){
+            for(let i=index ; i<index+9 && i<show_cards.length; i++){
             const card_container = document.createElement('div');
                     card_container.innerHTML=''
                 const card_elemnt = document.createElement('div');
-                card_elemnt.className =`market-card card-${cards[i].faction}`;
+                card_elemnt.className =`market-card card-${show_cards[i].faction}`;
                 card_elemnt.innerHTML = `
-                <div class="card-image" style="background-image: url('${cards[i].image}');";>
-                    <div class="rarity ${cards[i].rarity}">${cards[i].edition}</div>
+                <div class="card-image" style="background-image: url('${show_cards[i].image}');">
+                    <div class="rarity ${show_cards[i].rarity}">${show_cards[i].edition}</div>
                 </div>
                 <div class="px-4 py-2 bg-[#0E0E22]">
-                    <h3 class="text-2xl font-bold mb-2 text-${cards[i].faction === "lightning" ? "purple" : cards[i].faction ==="fire" ? "orange" : "ciel"}">${cards[i].name}</h3>
-                    <p class="text-xs text-gray-500 mb-2">${cards[i].rarity}</p>
-                    <p class="text-xs text-gray-300 mb-6">${cards[i].description}</p>
+                    <h3 class="text-2xl font-bold mb-2 text-${show_cards[i].faction === "lightning" ? "purple" : show_cards[i].faction ==="fire" ? "orange" : "ciel"}">${show_cards[i].name}</h3>
+                    <p class="text-xs text-gray-500 mb-2">${show_cards[i].rarity}</p>
+                    <p class="text-xs text-gray-300 mb-6">${show_cards[i].description}</p>
                     <div class="flex justify-between text-gray-400">
                         <div>
-                        <span >${cards[i].price} 💎</span>
+                        <span >${show_cards[i].price} 💎</span>
                         </div>
                         <div>
-                        <span>⚔️ ${cards[i].attack}</span>
-                        <span>🛡️ ${cards[i].defense}</span>
-                        <span>⚡ ${cards[i].speed}</span>
+                        <span>⚔️ ${show_cards[i].attack}</span>
+                        <span>🛡️ ${show_cards[i].defense}</span>
+                        <span>⚡ ${show_cards[i].speed}</span>
                         </div> 
                     </div>
                 </div>
@@ -380,8 +379,8 @@
                 const card_button = document.createElement('div')
                 card_button.className = 'flex justify-between items-center'
                 card_button.innerHTML = `
-                    <button class="btn-add-cart mt-4 ml-4" onclick="update_cart(${cards[i].id})">Add To Cart</button>
-                    <button class="btn-add-favorite mt-4 mr-4" onclick="favorite_card(${cards[i].id})">❤️</button>
+                    <button class="btn-add-cart mt-4 ml-4" onclick="update_cart(${show_cards[i].id})">Add To Cart</button>
+                    <button class="btn-add-favorite mt-4 mr-4" onclick="favorite_card(${show_cards[i].id})">❤️</button>
 
                 ` 
 
@@ -393,7 +392,79 @@
         }
         add_cart(cards, 0)
     
-      
+        function filter_faction(x){
+            
+            let filter_cards = cards;
+            if(x !== 'all'){
+                filter_cards = filter_cards.filter(card => card.faction === x)
+            }
+            add_cart(filter_cards, 0)
+        }
+        window.filter_faction = filter_faction;
+// window.filter_rarity = filter_rarity;
+// window.add_cart = add_cart;
+// window.favorite_card = favorite_card;
+
+//         function filter_rarity(x){
+//             current = x;
+//             let filter_cards = cards;
+//             if(x !== 'all'){
+//                 filter_cards = filter_cards.filter(card => card.rarity === current)
+//             }
+//             add_cart(filter_cards)
+//         }
+
+//         let cpt = 0;
+//         function update_cart(id){
+//             cpt++
+//             const card = cards.find(c => c.id === id)
+//             console.log(card);
+//             const exist = cart.some(x => x.id ===id)
+//             console.log(exist)
+//             if(!exist){
+//                 cart.push(card)
+//                 // console.log(cart)
+//                 localStorage.setItem('cart', JSON.stringify(cart))
+//                 alert('Added To Cart')
+//             }else{
+//                 alert("Already Added !!")
+//             }
+            
+            
+//             let panier = document.getElementById('cart')
+//             // console.log(panier)
+//             panier.innerHTML = `Cart (${cart.length})`
+//         }
+
+
+// let favorite_cards = JSON.parse(localStorage.getItem('favorite_card'))
+// if (favorite_cards === null) {
+//     favorite_cards = [];
+// }
+// function favorite_card(id){
+//     const card = cards.find(c => c.id === id);
+//     console.log(card)
+//     if(!(favorite_cards.includes(card))){
+//         favorite_cards.push(card);
+//         console.log(favorite_cards);
+//         localStorage.setItem('favorite_card', JSON.stringify(favorite_cards))
+//     }
+    
+// }
+
+
+//         const btns =  document.querySelectorAll('.btn-pagination');
+        
+//          btns[0].addEventListener('click', () => {
+//             add_cart(cards, 0)
+//         });
+//         btns[1].addEventListener('click', () => {
+//             add_cart(cards, 9)
+//         });
+//         btns[2].addEventListener('click', () => {
+//             add_cart(cards, 18)
+//         });
+        
 
 
 
